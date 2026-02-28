@@ -157,6 +157,7 @@ public class FullPortConfig extends BaseUIConfig {
                 .setLogBtnWidth(((int) loginBtnWidth))
                 .setLogBtnHeight(((int) loginBtnHeight))
                 .setLogBtnBackgroundPath(loginBtnImage)
+                .setLogBtnToastHidden(true)                    
 
                 .setSwitchAccHidden(changeBtnIsHidden)
                 .setSwitchAccText(authUIModel.changeBtnTitle)
