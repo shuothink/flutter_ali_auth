@@ -1,5 +1,20 @@
 # flutter_ali_auth
 
+---
+主要变更：
+相对于flutter_ali_auth: ^0.7.0
+
+bapidashu已做了这两个处理：
+- 1、源仓库未配置 namespace
+- 2、没有引用最新的联通依赖，会导致项目运行报错
+
+本仓库新增了这三个处理：
+- 1、.setLogBtnToastHidden(true)
+  - 这里可以在点击登录的时候，如果未勾选协议，只提示一个toast。否则会展示两个   
+- 2、隐私协议直接在状态栏那里展示了
+- 3、替换隐私协议的返回按钮
+---
+
 Language: 中文
 
 基于阿里云一键登录的 **Flutter集成的SDK插件**
