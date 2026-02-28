@@ -117,6 +117,7 @@ public class FullPortConfig extends BaseUIConfig {
 
         mAuthHelper.setAuthUIConfig(new AuthUIConfig.Builder()
                 .setStatusBarColor(Color.TRANSPARENT)
+                .setBottomNavColor(Color.TRANSPARENT)
                 .setLightColor(true)
                 .setStatusBarUIFlag(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN) 
 
@@ -129,7 +130,7 @@ public class FullPortConfig extends BaseUIConfig {
                 .setNavReturnImgHeight(20)
                 .setNavText("")
 
-                .setWebViewStatusBarColor(Color.GRAY)
+                .setWebViewStatusBarColor(Color.WHITE)
                 .setWebNavColor(Color.WHITE)
                 .setWebNavTextColor(Color.DKGRAY)
 
