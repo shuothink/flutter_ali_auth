@@ -310,6 +310,81 @@ extension AuthUIBuilder {
             return CGRect(x: offsetX, y: offsetY, width: width, height: height)
         }
 
+        applyPrivacyAlertStyle(model: model, config: config)
+
         return model
+    }
+
+    private func applyPrivacyAlertStyle(model: TXCustomModel, config: AuthUIConfig) {
+        let linkColor = config.privacyFontColor?.uicolor() ?? UIColor.systemBlue
+        let alertWidth = UIScreen.main.bounds.width - 56
+        let alertHeight: CGFloat = 230
+
+        model.privacyAlertIsNeedShow = true
+        model.privacyAlertIsNeedAutoLogin = true
+        model.tapPrivacyAlertMaskCloseAlert = false
+        model.privacyAlertMaskIsNeedShow = true
+        model.privacyAlertMaskColor = UIColor.black
+        model.privacyAlertMaskAlpha = 0.5
+
+        model.privacyAlertBackgroundColor = UIColor.white
+        model.privacyAlertAlpha = 1.0
+        model.privacyAlertCornerRadiusArray = [12, 12, 12, 12]
+
+        model.privacyAlertTitleContent = "服务协议与隐私政策"
+        model.privacyAlertTitleFont = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        model.privacyAlertTitleColor = UIColor.black
+        model.privacyAlertTitleAlignment = .center
+
+        model.privacyAlertContentFont = UIFont.systemFont(ofSize: CGFloat(config.privacyFontSize ?? Font_14))
+        model.privacyAlertContentColors = [UIColor.gray, linkColor]
+        model.privacyAlertContentOperatorFont = UIFont.systemFont(ofSize: CGFloat(config.privacyFontSize ?? Font_14))
+        model.privacyAlertContentUnderline = false
+        model.privacyAlertOperatorColor = linkColor
+        model.privacyAlertOneColor = linkColor
+        model.privacyAlertTwoColor = linkColor
+        model.privacyAlertThreeColor = linkColor
+        model.privacyAlertContentAlignment = .left
+        model.privacyAlertPreText = config.privacyPreText ?? "点击一键登录表示您已经阅读并同意"
+        model.privacyAlertSufText = config.privacySufText ?? ""
+
+        model.privacyAlertBtnContent = "确认"
+        model.privacyAlertBtnCornerRadius = 8
+        let normal = createSolidImage(color: "#1677FF".uicolor())
+        let pressed = createSolidImage(color: "#0F5CC0".uicolor())
+        model.privacyAlertBtnBackgroundImages = [normal, pressed]
+        model.privacyAlertButtonTextColors = [UIColor.white, UIColor.white]
+        model.privacyAlertButtonFont = UIFont.systemFont(ofSize: 15, weight: .medium)
+
+        model.privacyAlertCloseButtonIsNeedShow = true
+        if let closeImage = BundleImage("icon_close_gray") {
+            model.privacyAlertCloseButtonImage = closeImage
+        }
+
+        model.privacyAlertFrameBlock = { superFrame, _, _ in
+            CGRect(
+                x: (superFrame.width - alertWidth) / 2,
+                y: (superFrame.height - alertHeight) / 2,
+                width: alertWidth,
+                height: alertHeight
+            )
+        }
+        model.privacyAlertTitleFrameBlock = { _, _, _ in
+            CGRect(x: 20, y: 20, width: alertWidth - 40, height: 26)
+        }
+        model.privacyAlertPrivacyContentFrameBlock = { _, _, _ in
+            CGRect(x: 20, y: 58, width: alertWidth - 40, height: 104)
+        }
+        model.privacyAlertButtonFrameBlock = { _, _, _ in
+            CGRect(x: 20, y: alertHeight - 56, width: alertWidth - 40, height: 40)
+        }
+    }
+
+    private func createSolidImage(color: UIColor, size: CGSize = CGSize(width: 10, height: 10)) -> UIImage {
+        let renderer = UIGraphicsImageRenderer(size: size)
+        return renderer.image { ctx in
+            color.setFill()
+            ctx.fill(CGRect(origin: .zero, size: size))
+        }
     }
 }

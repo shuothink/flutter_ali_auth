@@ -1,6 +1,5 @@
 import ATAuthSDK
 import Flutter
-import MBProgressHUD
 import UIKit
 
 public class SwiftFlutterAliAuthPlugin: NSObject, FlutterPlugin {
@@ -300,14 +299,7 @@ public class SwiftFlutterAliAuthPlugin: NSObject, FlutterPlugin {
                             isChecked = checked
                         }
                         if isChecked == 0 {
-                            guard let currentViewController = WindowUtils.getCurrentViewController() else {
-                                return
-                            }
-                            let hud = MBProgressHUD.showAdded(to: currentViewController.view, animated: true)
-                            hud.mode = MBProgressHUDMode.text
-                            hud.offset.y = 180
-                            hud.label.text = "请先同意相关开发协议哦"
-                            hud.hide(animated: true, afterDelay: 2) // 2秒钟后自动隐藏
+                            // Use SDK privacy alert instead of toast when protocol is unchecked.
                         }
                     }
                     let shouldCancelLoginVC: Bool =
@@ -427,14 +419,7 @@ public class SwiftFlutterAliAuthPlugin: NSObject, FlutterPlugin {
                             isChecked = checked
                         }
                         if isChecked == 0 {
-                            guard let currentViewController = WindowUtils.getCurrentViewController() else {
-                                return
-                            }
-                            let hud = MBProgressHUD.showAdded(to: currentViewController.view, animated: true)
-                            hud.mode = MBProgressHUDMode.text
-                            hud.offset.y = 200
-                            hud.label.text = "请先同意相关开发协议哦"
-                            hud.hide(animated: true, afterDelay: 3) // 2秒钟后自动隐藏
+                            // Use SDK privacy alert instead of toast when protocol is unchecked.
                         }
                     }
                     let shouldCancelLoginVC: Bool =
