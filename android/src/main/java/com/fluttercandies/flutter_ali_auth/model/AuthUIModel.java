@@ -1,6 +1,5 @@
 package com.fluttercandies.flutter_ali_auth.model;
 
-import static com.fluttercandies.flutter_ali_auth.utils.Constant.Font_12;
 import static com.fluttercandies.flutter_ali_auth.utils.Constant.Font_14;
 
 import androidx.annotation.NonNull;
@@ -117,7 +116,7 @@ public class AuthUIModel {
     public String privacyThreeName;
     public String privacyThreeUrl;
 
-    public Integer privacyFontSize = Font_12;
+    public Integer privacyFontSize = Font_14;
     public String privacyFontColor = "#2196F3";
     public Double privacyFrameOffsetX;
     public Double privacyFrameOffsetY;

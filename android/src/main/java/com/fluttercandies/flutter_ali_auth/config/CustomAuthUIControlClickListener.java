@@ -3,10 +3,8 @@ package com.fluttercandies.flutter_ali_auth.config;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.fluttercandies.flutter_ali_auth.AuthClient;
-import com.fluttercandies.flutter_ali_auth.R;
 import com.fluttercandies.flutter_ali_auth.model.AuthResponseModel;
 import com.mobile.auth.gatewayauth.AuthUIControlClickListener;
 import com.mobile.auth.gatewayauth.PhoneNumberAuthHelper;
@@ -65,12 +63,8 @@ public class CustomAuthUIControlClickListener implements AuthUIControlClickListe
                 break;
             //点击一键登录按钮会发出此回调
             //当协议栏没有勾选时 点击按钮会有默认toast 如果不需要或者希望自定义内容 setLogBtnToastHidden(true)隐藏默认Toast
-            //通过此回调自己设置toast
+            //通过SDK二次协议弹窗处理未勾选状态，这里不再弹原生toast
             case ResultCode.CODE_ERROR_USER_LOGIN_BTN:
-                if (!jsonObj.optBoolean("isChecked")) {
-                    Toast.makeText(mContext, R.string.custom_toast, Toast.LENGTH_SHORT).show();
-                }
-
                 break;
             //checkbox状态改变触发此回调
             case ResultCode.CODE_ERROR_USER_CHECKBOX:
@@ -139,4 +133,5 @@ public class CustomAuthUIControlClickListener implements AuthUIControlClickListe
 
         }
     }
+
 }

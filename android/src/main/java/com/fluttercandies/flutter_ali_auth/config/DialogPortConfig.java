@@ -1,6 +1,6 @@
 package com.fluttercandies.flutter_ali_auth.config;
 
-import static com.fluttercandies.flutter_ali_auth.utils.Constant.Font_12;
+import static com.fluttercandies.flutter_ali_auth.utils.Constant.Font_14;
 import static com.fluttercandies.flutter_ali_auth.utils.Constant.Font_16;
 import static com.fluttercandies.flutter_ali_auth.utils.Constant.Font_20;
 import static com.fluttercandies.flutter_ali_auth.utils.Constant.getAppName;
@@ -10,7 +10,9 @@ import static com.fluttercandies.flutter_ali_auth.utils.Constant.kPadding;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -38,6 +40,10 @@ public class DialogPortConfig extends BaseUIConfig {
 
     @Override
     public void configAuthPage(AuthUIModel authUIModel) {
+        CustomAuthUIControlClickListener customAuthUIControlClickListener =
+                new CustomAuthUIControlClickListener(mAuthHelper, mActivity, mChannel);
+        mAuthHelper.setUIClickListener(customAuthUIControlClickListener);
+
         int authPageOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT;
         if (Build.VERSION.SDK_INT == 26) {
             authPageOrientation = ActivityInfo.SCREEN_ORIENTATION_BEHIND;
@@ -143,6 +149,10 @@ public class DialogPortConfig extends BaseUIConfig {
                 })
                 .build());
 
+        final GradientDrawable privacyConfirmBtnBg = new GradientDrawable();
+        privacyConfirmBtnBg.setColor(Color.parseColor("#1677FF"));
+        privacyConfirmBtnBg.setCornerRadius(mActivity.getResources().getDisplayMetrics().density * 8f);
+
         mAuthHelper.setAuthUIConfig(new AuthUIConfig.Builder()
                 .setWebViewStatusBarColor(Color.GRAY)
                 .setWebNavColor(Color.WHITE)
@@ -181,6 +191,41 @@ public class DialogPortConfig extends BaseUIConfig {
                 .setLogBtnWidth(((int) loginBtnWidth))
                 .setLogBtnHeight(((int) loginBtnHeight))
                 .setLogBtnBackgroundPath(loginBtnImage)
+                .setLogBtnToastHidden(true)
+                .setPrivacyAlertIsNeedShow(true)
+                .setPrivacyAlertIsNeedAutoLogin(true)
+                .setPrivacyAlertMaskIsNeedShow(true)
+                .setTapPrivacyAlertMaskCloseAlert(false)
+                .setPrivacyAlertCloseBtnShow(true)
+                .setPrivacyAlertCloseImgWidth(14)
+                .setPrivacyAlertCloseImgHeight(14)
+                .setPrivacyAlertCloseScaleType(ImageView.ScaleType.FIT_CENTER)
+                .setPrivacyAlertAlignment(Gravity.CENTER)
+                .setPrivacyAlertBackgroundColor(Color.WHITE)
+                .setPrivacyAlertWidth((int) (mScreenWidthDp * 0.86f))
+                .setPrivacyAlertHeight((int) (mScreenHeightDp * 0.30f))
+                .setPrivacyAlertCornerRadiusArray(new int[]{12, 12, 12, 12})
+                .setPrivacyAlertTitleContent("服务协议与隐私政策")
+                .setPrivacyAlertBefore(privacyPreText)
+                .setPrivacyAlertEnd(authUIModel.privacySufText == null ? "" : authUIModel.privacySufText)
+                .setPrivacyAlertBtnContent("确认")
+                .setPrivacyAlertBtnTextColor(Color.WHITE)
+                .setPrivacyAlertBtnTextSize(15)
+                .setPrivacyAlertBtnBackgroundImgDrawable(privacyConfirmBtnBg)
+                .setPrivacyAlertBtnWidth((int) (mScreenWidthDp * 0.86f) - 28)
+                .setPrivacyAlertBtnHeigth(42)
+                .setPrivacyAlertBtnHorizontalMargin(14)
+                .setPrivacyAlertBtnVerticalMargin(10)
+                .setPrivacyAlertContentAlignment(Gravity.LEFT)
+                .setPrivacyAlertContentTextSize(authUIModel.privacyFontSize == null ? Font_14 : authUIModel.privacyFontSize)
+                .setPrivacyAlertContentHorizontalMargin(16)
+                .setPrivacyAlertContentVerticalMargin(16)
+                .setPrivacyAlertContentBaseColor(Color.GRAY)
+                .setPrivacyAlertContentColor(Color.GRAY)
+                .setPrivacyAlertOneColor(Color.parseColor(authUIModel.privacyFontColor))
+                .setPrivacyAlertTwoColor(Color.parseColor(authUIModel.privacyFontColor))
+                .setPrivacyAlertThreeColor(Color.parseColor(authUIModel.privacyFontColor))
+                .setPrivacyAlertOperatorColor(Color.parseColor(authUIModel.privacyFontColor))
 
                 .setSwitchAccHidden(changeBtnIsHidden)
                 .setSwitchAccText(authUIModel.changeBtnTitle)
@@ -193,7 +238,7 @@ public class DialogPortConfig extends BaseUIConfig {
                 .setAppPrivacyThree(authUIModel.privacyThreeName, authUIModel.privacyThreeUrl)
                 .setAppPrivacyColor(Color.GRAY, Color.parseColor(authUIModel.privacyFontColor))
                 .setPrivacyOffsetY_B(((int) privacyFrameOffsetYFromBottom))
-                .setPrivacyTextSize(Font_12)
+                .setPrivacyTextSize(Font_14)
                 .setPrivacyBefore(privacyPreText)
                 .setPrivacyEnd(authUIModel.privacySufText)
                 .setVendorPrivacyPrefix(authUIModel.privacyOperatorPreText)
