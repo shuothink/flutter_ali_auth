@@ -214,7 +214,7 @@ extension AuthUIBuilder {
             if kHorizontal! {
                 return CGRect.zero
             }
-            let width: CGFloat = frame.width // 150
+            let width: CGFloat = frame.width + 50 // 默认的 150 不够，这里临时增加50 
 
             let height: CGFloat = frame.height // 38
 
